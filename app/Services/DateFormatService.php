@@ -3,26 +3,29 @@ namespace App\Services;
 
 use Carbon\Carbon;
 
+/**
+ * Class DateFormatService
+ *
+ * @package App\Services
+ */
 class DateFormatService
 {
     /**
-     * @param string $date
+     * @param string|Carbon $date
      *
      * @return string
      */
-    public function dateFormatYMD(string $date) : string
+    public function dateFormatYMD($date) : string
     {
-        return Carbon::createFromFormat('m/d/Y', $date)
-                     ->format('Y-m-d');
+        return Carbon::parse($date)->format('Y-m-d');
     }
     /**
-     * @param string $date
+     * @param string|Carbon $date
      *
      * @return string
      */
-    public function dateFormatMDY(string $date) : string
+    public function dateFormatMDY($date) : string
     {
-        return Carbon::createFromFormat('Y-m-d', $date)
-                     ->format('m/d/Y');
+        return Carbon::parse($date)->format('m/d/Y');
     }
 }

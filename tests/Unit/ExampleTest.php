@@ -28,4 +28,14 @@ class ExampleTest extends TestCase
         $result = DateFormatFacade::dateFormatYMD('04/16/2021');
         $this->assertEquals("2021-04-16", $result);
     }
+
+    /** @test */
+    public function it_can_use_carbon_instance_date_format_facade()
+    {
+        $result = DateFormatFacade::dateFormatMDY(now());
+        $this->assertEquals(now()->format('m/d/Y'), $result);
+
+        $result = DateFormatFacade::dateFormatYMD(now());
+        $this->assertEquals(now()->format('Y-m-d'), $result);
+    }
 }
