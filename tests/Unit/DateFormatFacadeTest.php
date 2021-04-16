@@ -6,7 +6,7 @@ use Tests\TestCase;
 use App\Services\DateFormatService;
 use App\Services\Facades\DateFormatFacade;
 
-class ExampleTest extends TestCase
+class DateFormatFacadeTest extends TestCase
 {
     /** @test */
     public function it_can_run_methods()
