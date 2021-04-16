@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Services\DateFormatService;
 use App\Services\Facades\DateFormatFacade;
+use Tests\TestCase;
 
 class DateFormatFacadeTest extends TestCase
 {

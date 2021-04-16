@@ -19,6 +19,7 @@ class DateFormatService
     {
         return Carbon::parse($date)->format('Y-m-d');
     }
+
     /**
      * @param string|Carbon $date
      *
