@@ -1,62 +1,148 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel 创建自定义 Facade
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![GitHub Tests Action Status](https://github.com/curder/laravel-create-custom-facade-test-demo/actions/workflows/run-test.yml/badge.svg)](https://github.com/curder/laravel-create-custom-facade-test-demo/actions?query=run-test%3Amaster)
+[![GitHub Code Style Action Status](https://github.com/curder/laravel-create-custom-facade-test-demo/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/curder/laravel-create-custom-facade-test-demo/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+[GitHub 源代码](https://github.com/curder/laravel-create-custom-facade-test-demo)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+在 Laravel 应用程序中，[Facade](https://laravel.com/docs/8.x/facades) 是提供从容器访问对象的类。
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Laravel 的外观以及您创建的任何自定义外观都将扩展基础 `Illuminate\Support\Facades\Facade` 类。
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+Laravel 提供默认的外观，例如 `Route`，`Redirect`，`Cookie`，`App`，`Crypt`等。
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+如果要为自己的应用程序创建 `Facade` ，只需遵循以下步骤：
 
-## Contributing
+## 安装Laravle
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+composer create-project laravel/laravel laravel-create-custom-facade-test-demo -vvv
+```
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## 创建实现类
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+这里举例实现类放在 `app/Services`目录下。类的内容如下：
 
-## License
+```php
+<?php
+namespace App\Services;
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+use Carbon\Carbon;
+
+/**
+ * Class DateFormatService
+ *
+ * @package App\Services
+ */
+class DateFormatService
+{
+    /**
+     * @param string|Carbon $date
+     *
+     * @return string
+     */
+    public function dateFormatYMD($date) : string
+    {
+        return Carbon::parse($date)->format('Y-m-d');
+    }
+
+    /**
+     * @param string|Carbon $date
+     *
+     * @return string
+     */
+    public function dateFormatMDY($date) : string
+    {
+        return Carbon::parse($date)->format('m/d/Y');
+    }
+}
+```
+
+
+
+## 创建门面
+
+在 `app\Services\Facades`目录下创建对应文件如下：
+
+```php
+<?php
+namespace App\Services\Facades;
+
+use App\Services\DateFormatService;
+use Illuminate\Support\Facades\Facade;
+
+/**
+ * @method static string dateFormatMDY(string|mixed $date)
+ * @method static string dateFormatYMD(string|mixed $date)
+ *
+ * @see DateFormatService
+ */
+class DateFormatFacade extends Facade
+{
+    protected static function getFacadeAccessor() : string
+    {
+        return DateFormatService::class;
+    }
+}
+```
+
+
+
+## 创建测试
+
+```php
+<?php
+
+namespace Tests\Unit;
+
+use App\Services\DateFormatService;
+use App\Services\Facades\DateFormatFacade;
+use Tests\TestCase;
+
+class DateFormatFacadeTest extends TestCase
+{
+    /** @test */
+    public function it_can_run_methods()
+    {
+        $result = (new DateFormatService())->dateFormatMDY('2021-04-16');
+        $this->assertEquals("04/16/2021", $result);
+
+        $result = (new DateFormatService())->dateFormatYMD('04/16/2021');
+        $this->assertEquals("2021-04-16", $result);
+    }
+
+    /** @test */
+    public function it_can_use_date_format_facade()
+    {
+        $result = DateFormatFacade::dateFormatMDY('2021-04-16');
+        $this->assertEquals("04/16/2021", $result);
+
+        $result = DateFormatFacade::dateFormatYMD('04/16/2021');
+        $this->assertEquals("2021-04-16", $result);
+    }
+
+    /** @test */
+    public function it_can_use_carbon_instance_date_format_facade()
+    {
+        $result = DateFormatFacade::dateFormatMDY(now());
+        $this->assertEquals(now()->format('m/d/Y'), $result);
+
+        $result = DateFormatFacade::dateFormatYMD(now());
+        $this->assertEquals(now()->format('Y-m-d'), $result);
+    }
+}
+```
+
+
+
+## 参考地址
+
+- [Laravel Create Custom Facade Class Example](https://www.itsolutionstuff.com/post/laravel-create-custom-facade-exampleexample.html)
