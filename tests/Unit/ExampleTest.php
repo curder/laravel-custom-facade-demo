@@ -2,10 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Facades\DateFormatFacade;
-use App\Services\DateFormatService;
-use Carbon\Carbon;
 use Tests\TestCase;
+use App\Services\DateFormatService;
+use App\Services\Facades\DateFormatFacade;
 
 class ExampleTest extends TestCase
 {
