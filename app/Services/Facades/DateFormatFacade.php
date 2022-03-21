@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Facades;
 
 use App\Services\DateFormatService;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class DateFormatFacade extends Facade
 {
-    protected static function getFacadeAccessor() : string
+    protected static function getFacadeAccessor(): string
     {
         return DateFormatService::class;
     }

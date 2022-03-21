@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ class DateFormatService
      *
      * @return string
      */
-    public function dateFormatYMD($date) : string
+    public function dateFormatYMD($date): string
     {
         return Carbon::parse($date)->format('Y-m-d');
     }
@@ -25,7 +26,7 @@ class DateFormatService
      *
      * @return string
      */
-    public function dateFormatMDY($date) : string
+    public function dateFormatMDY($date): string
     {
         return Carbon::parse($date)->format('m/d/Y');
     }
