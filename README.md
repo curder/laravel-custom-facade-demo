@@ -1,6 +1,7 @@
 # Laravel 创建自定义 Facade
 
 [![GitHub Tests Action Status](https://github.com/curder/laravel-create-custom-facade-test-demo/actions/workflows/run-test.yml/badge.svg)](https://github.com/curder/laravel-create-custom-facade-test-demo/actions?query=run-test%3Amaster)
+[![PHPStan](https://github.com/curder/laravel-create-custom-facade-test-demo/actions/workflows/phpstan.yml/badge.svg?branch=master)](https://github.com/curder/laravel-create-custom-facade-test-demo/actions/workflows/phpstan.yml)
 [![GitHub Code Style Action Status](https://github.com/curder/laravel-create-custom-facade-test-demo/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/curder/laravel-create-custom-facade-test-demo/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 
 
