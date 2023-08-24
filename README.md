@@ -48,7 +48,7 @@ class DateFormatService
      *
      * @return string
      */
-    public function dateFormatYMD($date) : string
+    public function ymd($date) : string
     {
         return Carbon::parse($date)->format('Y-m-d');
     }
@@ -58,7 +58,7 @@ class DateFormatService
      *
      * @return string
      */
-    public function dateFormatMDY($date) : string
+    public function mdy($date) : string
     {
         return Carbon::parse($date)->format('m/d/Y');
     }
@@ -79,8 +79,8 @@ use App\Services\DateFormatService;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static string dateFormatMDY(string|mixed $date)
- * @method static string dateFormatYMD(string|mixed $date)
+ * @method static string mdy(string|mixed $date)
+ * @method static string ymd(string|mixed $date)
  *
  * @see DateFormatService
  */
@@ -111,10 +111,10 @@ class DateFormatFacadeTest extends TestCase
     /** @test */
     public function it_can_run_methods()
     {
-        $result = (new DateFormatService())->dateFormatMDY('2021-04-16');
+        $result = (new DateFormatService())->mdy('2021-04-16');
         $this->assertEquals("04/16/2021", $result);
 
-        $result = (new DateFormatService())->dateFormatYMD('04/16/2021');
+        $result = (new DateFormatService())->ymd('04/16/2021');
         $this->assertEquals("2021-04-16", $result);
     }
 
