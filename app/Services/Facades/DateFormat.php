@@ -6,12 +6,12 @@ use App\Services\DateFormatService;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static string dateFormatMDY(string|mixed $date)
- * @method static string dateFormatYMD(string|mixed $date)
+ * @method static string mdy(string|mixed $date)
+ * @method static string ymd(string|mixed $date)
  *
  * @see DateFormatService
  */
-class DateFormatFacade extends Facade
+class DateFormat extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
